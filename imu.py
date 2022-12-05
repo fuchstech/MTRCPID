@@ -25,8 +25,8 @@ def get_data(show=False):
                 data_imu["ygyro"] = data[6].split(",")[0]
                 data_imu["zgyro"] = data[7].split(",")[0]
                 data_imu["xmag"] = data[8].split(",")[0]
-                data_imu["ygyro"] = data[9].split(",")[0]
-                data_imu["zgyro"] = data[10].split(",")[0][0:-1]
+                data_imu["ymag"] = data[9].split(",")[0]
+                data_imu["zmag"] = data[10].split(",")[0][0:-1]
             except:
                 print(data)
         else:
