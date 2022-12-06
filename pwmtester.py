@@ -38,7 +38,7 @@ deger= int(input("Deger Giriniz: ")) #pwm değeri
 #1900 Maximum hızda ileri
 #1500 = 0
 
-pin= int(input("Channel giriniz: ")) #komutlari integer olarak giriniz, komutları buradan ogrenebilirsiniz https://www.ardusub.com/operators-manual/rc-input-and-output.html
+pin= int(input("Channel giriniz: ")) #komutlari integer olarak giriniz, komutları buradan ogrenebilirsiniz https://www.ardusub.com/operators-manual/rc3-input-and-output.html
 count = 0
 while (count < 10000):
   set_rc_channel_pwm(pin, deger)

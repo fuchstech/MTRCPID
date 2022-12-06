@@ -17,7 +17,7 @@ while True:
     roi= frame[posY:posY+BH, posX:posX+BW].copy()
     frame= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     frame= cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
-    frame= cv2.rectangle(frame,(posX,posY),(posX+BW,posY+BH),(0,0,0),3)
+    frame= cv2.rectangle(frame,(posX,posY),(posX+BW,posY+BH),(255,255,255),2)
     frame[posY:posY+BH, posX:posX+BW]=roi
     
     posX=posX+dx
