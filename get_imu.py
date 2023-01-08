@@ -13,6 +13,11 @@ data_imu = {
 "yaw":0,
 "altitude":0,
 }
+data_power = {
+"Vcc":0,
+"Vservo":0,
+"flags":0
+}
 
 def get_data():
     if connection:
@@ -33,14 +38,36 @@ def get_data():
                     #print(type(data_imu["pitch"]))
                 except:
                     print(data)
+                
+            elif msg.get_type() == 'POWER_STATUS':
+                pdata = str(msg)
+                try:
+                    pdata = pdata.split("{")
+                    pdata = pdata[1].strip("}").split(",")
+                    #print(pdata)
+                    for i in pdata:
+                        data_power[i.split(":")[0].strip()] = np.float64(i.split(":")[1].strip()) / 1000
+
+                    #data_power["Vcc"] = np.float64(pdata[0].split(":")[1].strip())/1000
+                    #data_power["Vservo"] = np.float64(pdata[0].split(":")[1].strip())/1000
+                    #print(data_power)
+                    #print(type(data_imu["pitch"]))
+                except:
+                    print(data)
+            elif msg.get_type() == 'GPS_RAW_INT':
+                print(str(msg))
+                try:
+                    pass
+                except:
+                    print(data)
             else:
                 pass
                 #print(msg.get_type(), msg)
 
 get_imu = Thread(target=get_data)
 get_imu.start()
-
+"""
 while 1:
     pitch = np.round(data_imu["pitch"]*100,2)
     if pitch != 0:
-        print(pitch)
+        print(pitch)"""

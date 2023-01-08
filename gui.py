@@ -50,8 +50,7 @@ def get_data():
 get_imu = Thread(target=get_data)
 get_imu.start()
 
-foreground = cv2.imread('tilki.png')
-
+foreground = cv2.imread('tilki1.png')
 # position of logo on video
 top_left = [0, 0] # the top-left corner of your logo goes here
 tx = top_left[0] # less typing later
@@ -59,16 +58,16 @@ ty = top_left[1]
 
 # crop of logo
 left = 0
-right = 100
+right = 120
 top = 0 # y = 0 is the top of the image
-bottom = 100
+bottom = 160
 
 # calculate width and height of logo crop
 width = right - left
 height = bottom - top
 
 # main loop
-alpha = 0.4
+alpha = 0.2
 
 #python3.8 -m pip install opencv-python==4.3.0.36
 class VideoThread(QThread):
@@ -82,11 +81,11 @@ class VideoThread(QThread):
         X2 = 540
         color = (39,237,250)
         while True:
-            
             ret, cv_img = cap.read()
             cv_slice = cv_img[ty:ty+height, tx:tx+width]; 
-            logo_slice = foreground[top:bottom, left:right]; 
+            logo_slice = cv2.resize(foreground, (width,height), interpolation=cv2.INTER_NEAREST)
             added_image = cv2.addWeighted(cv_slice,alpha,logo_slice,1-alpha,0)
+
             cv_img[ty:ty+height, tx:tx+width] = added_image
             #cv2.line(cv_img, (40,posX), (600,posX),(255,255,255),1)
             cv2.line(cv_img, (X1,30),(X1,450),color,2)
@@ -96,7 +95,6 @@ class VideoThread(QThread):
             times = 25
             for i in range(17):
                 if i%3 == 1:
-
                     cv2.line(cv_img, (X1,posX+i*times), (X1+30,posX+i*times),color,3)
                     cv2.line(cv_img, (X2,posX+i*times), (X2-30,posX+i*times),color,3)
                 else:
